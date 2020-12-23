@@ -5,10 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:com.wuqiang.courseManagement.ViewModel"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:lvcs ="clr-namespace:LiveCharts;assembly=LiveCharts"
              xmlns:myControl="clr-namespace:com.wuqiang.Controls;assembly=com.wuqiang.Controls"
+             xmlns:BoolConvert="clr-namespace:com.wuqiang.courseManagement.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="681" d:DesignWidth="800">
-    <Grid>
+    <UserControl.Resources>
+        <BoolConvert:BoolToArrowConverter x:Key="BoolToArrowConverter"/>
+        <BoolConvert:BoolToFontColor x:Key="BoolToFontColor"/>
+    </UserControl.Resources>
+    <!--ScrollViewer 滚动条-->
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160"/>
             <RowDefinition Height="360"/>
@@ -221,8 +229,87 @@
             <!--<ListView Grid.Row="1" ItemsSource="">
                 
             </ListView>-->
+            <ItemsControl ItemsSource="{Binding CourseSeriesList}" Grid.Row="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    
+                    <DataTemplate>
+                        <Border Background="White" CornerRadius="10" Margin="0 5">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Gray" ShadowDepth="0" BlurRadius="15" Opacity="0.4" Direction="0"/>
+                            </Border.Effect>
+                            <Grid Height="70">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="3.5*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border BorderBrush="#DDD" BorderThickness="0 0 1 0" Margin="0 10"/>
+                                <Border BorderBrush="#DDD" BorderThickness="0 0 1 0" Margin="0 10" Grid.Column="1"/>
+
+                                <TextBlock Text="{Binding CourseName}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#444"/>
+                                <!--饼图-->
+                                <lvc:PieChart Grid.Column="1" LegendLocation="Right" InnerRadius="15" Series="{Binding SeriesCollections}" Margin="0 0 15 0">
+                                    <!--<lvc:PieChart.Series>
+                                        <lvcs:SeriesCollection>
+                                            <lvc:PieSeries Title="111" Values="11" DataLabels="False"/>
+                                            <lvc:PieSeries Title="222" Values="16" DataLabels="False"/>
+                                            <lvc:PieSeries Title="222" Values="1" DataLabels="False"/>
+                                        </lvcs:SeriesCollection>
+                                    </lvc:PieChart.Series>-->
+                                    <lvc:PieChart.ChartLegend>
+                                        <lvc:DefaultLegend BulletSize="10"/>
+                                    </lvc:PieChart.ChartLegend>
+                                    <lvc:PieChart.DataTooltip>
+                                        <lvc:DefaultTooltip BulletSize="10"/>
+                                    </lvc:PieChart.DataTooltip>
+                                </lvc:PieChart>
+
+                                <ItemsControl ItemsSource="{Binding SeriesList}" Grid.Column="2">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="5"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition MinHeight="24"/>
+                                                    <RowDefinition MinHeight="24"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding SeriesName}" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CurrentValue}" Grid.Row="1" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding IsGrowing,Converter={StaticResource BoolToArrowConverter}}" Foreground="{Binding IsGrowing,Converter={StaticResource BoolToFontColor}}"  Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                                                <TextBlock Text="{Binding ChangeRate}" Foreground="{Binding IsGrowing,Converter={StaticResource BoolToFontColor}}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                    
+                </ItemsControl.ItemTemplate>
+              
+            </ItemsControl>
+           
+            
+            
+            
             
         </Grid>
         
     </Grid>
+    </ScrollViewer>
 </UserControl>
