@@ -1,4 +1,5 @@
-﻿using System;
+﻿using com.wuqiang.courseManagement.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace com.wuqiang.courseManagement.View
         public CoursePageView()
         {
             InitializeComponent();
+            this.DataContext = new CoursePageViewModel();
         }
     }
 }

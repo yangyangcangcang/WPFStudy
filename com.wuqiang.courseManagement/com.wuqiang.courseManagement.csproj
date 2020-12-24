@@ -107,10 +107,12 @@
     <Compile Include="Common\PasswordHelper.cs" />
     <Compile Include="Converter\BoolToArrowConverter.cs" />
     <Compile Include="Converter\BoolToFontColor.cs" />
+    <Compile Include="Model\CategoryItemModel.cs" />
     <Compile Include="Model\CourseSeriesModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\SeriesModel.cs" />
     <Compile Include="Model\UserModel.cs" />
+    <Compile Include="ViewModel\CoursePageViewModel.cs" />
     <Compile Include="ViewModel\FirstPageViewModel.cs" />
     <Compile Include="View\CoursePageView.xaml.cs">
       <DependentUpon>CoursePageView.xaml</DependentUpon>
