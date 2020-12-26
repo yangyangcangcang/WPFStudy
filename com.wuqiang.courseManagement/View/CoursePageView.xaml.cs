@@ -1,6 +1,8 @@
-﻿using com.wuqiang.courseManagement.ViewModel;
+﻿using com.wuqiang.courseManagement.Model;
+using com.wuqiang.courseManagement.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +27,27 @@ namespace com.wuqiang.courseManagement.View
         {
             InitializeComponent();
             this.DataContext = new CoursePageViewModel();
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+            string content = radioButton.Content.ToString();
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(this.icCourses.ItemsSource);
+            if (content=="全部")
+            {
+                view.Filter = null;
+
+                //排序 Descending 降序    Ascending 升序
+                view.SortDescriptions.Add(new SortDescription("CourseName", ListSortDirection.Descending));
+            }
+            else
+            {
+                view.Filter = new Predicate<object>(p => {
+                    return (p as CourseModel).Teachers.Exists(t => t == content);
+                });
+            }
         }
     }
 }

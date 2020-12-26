@@ -108,6 +108,7 @@
     <Compile Include="Converter\BoolToArrowConverter.cs" />
     <Compile Include="Converter\BoolToFontColor.cs" />
     <Compile Include="Model\CategoryItemModel.cs" />
+    <Compile Include="Model\CourseModel.cs" />
     <Compile Include="Model\CourseSeriesModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\SeriesModel.cs" />

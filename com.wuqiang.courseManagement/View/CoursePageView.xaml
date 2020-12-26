@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:com.wuqiang.courseManagement.ViewModel"
+             xmlns:zxc="clr-namespace:com.wuqiang.Controls;assembly=com.wuqiang.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -22,7 +23,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
-    
+
     <Border CornerRadius="5" Background="White" Margin="0 10 0 0">
         <Grid>
             <Grid.RowDefinitions>
@@ -79,7 +80,12 @@
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <RadioButton Content="{Binding CategoryName}" Template="{StaticResource CategoryItemButtonTemplate}" IsChecked="{Binding IsSelected}" Margin="5 0" GroupName="Teacher"/>
+                                    <!--方式一： ViewModel 层面处理流程 -->
+                                    <RadioButton Content="{Binding CategoryName}" Template="{StaticResource CategoryItemButtonTemplate}" IsChecked="{Binding IsSelected}" Margin="5 0" GroupName="Teacher" Command="{Binding DataContext.TeacherFilterCommand,RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" CommandParameter="{Binding CategoryName}"/>
+
+                                    <!--方式二：view 层面处理流程-->
+                                    <!--<RadioButton Content="{Binding CategoryName}" Template="{StaticResource CategoryItemButtonTemplate}" IsChecked="{Binding IsSelected}" Margin="5 0" GroupName="Teacher"  Click="RadioButton_Click"/>-->
+
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -88,23 +94,36 @@
                 </Grid>
             </Border>
 
-            <StackPanel Grid.Row="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Width="90" Height="60" Background="#DDD" CornerRadius="5" Margin="0 15">
-                        <Border.Effect>
-                            <DropShadowEffect Color="Gray" ShadowDepth="0" BlurRadius="10" Opacity="0.3" Direction="0"/>
-                        </Border.Effect>
-                    </Border>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+                <ItemsControl ItemsSource="{Binding CourseList}" x:Name="icCourses">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                    <StackPanel Grid.Column="1">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock  FontSize="16" Foreground="#333">
-                                <Hyperlink FontSize="16" Foreground="#333">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid x:Name="CourseContent">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Width="90" Height="60"  CornerRadius="5" Margin="0 15">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Gray" ShadowDepth="0" BlurRadius="10" Opacity="0.3" Direction="0"/>
+                                        </Border.Effect>
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Cover}" Stretch="UniformToFill"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                                            <TextBlock  FontSize="16" Foreground="#333">
+                                <Hyperlink FontSize="16" Foreground="#333" Command="{Binding DataContext.OpenCourseUrlCommand,RelativeSource={RelativeSource AncestorType=UserControl,Mode=FindAncestor}}" CommandParameter="{Binding Url}">
                                     <Hyperlink.Style>
                                         <Style>
                                             <!--取消下划线-->
@@ -122,35 +141,69 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Hyperlink.Style>
-                                    <TextBlock Text="C#/.Net架构师蜕变之路"/>
+                                    <TextBlock Text="{Binding CourseName}"/>
                                 </Hyperlink>
                             </TextBlock>
-                            <StackPanel Orientation="Horizontal">
-                                <Border Background="#EEE">
-                                    <TextBlock Text="张三"/>
-                                </Border>
-                                <Border Background="#EEE">
-                                    <TextBlock Text="李四"/>
-                                </Border>
-                            </StackPanel>
-                        </StackPanel>
-                        <TextBlock Text="我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人我是好人" TextWrapping="Wrap" LineHeight="23" Foreground="#AAA"/>
-                    </StackPanel>
 
-                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Margin="5 0">
+                                            <ItemsControl ItemsSource="{Binding Teachers}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel Orientation="Horizontal" Margin="15 0"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Background="#EEE" Margin="5 0" CornerRadius="5">
+                                                            <TextBlock Text="{Binding}" Margin="12 3"/>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <!--<StackPanel Orientation="Horizontal" Margin="15 0">
+                                        <Border Background="#EEE" Margin="5 0" CornerRadius="5">
+                                            <TextBlock Text="张三" Margin="12 3"/>
+                                        </Border>
+                                        <Border Background="#EEE" Margin="5 0" CornerRadius="5">
+                                            <TextBlock Text="李四" Margin="12 3"/>
+                                        </Border>
+                                    </StackPanel>-->
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" LineHeight="23" Foreground="#AAA"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Margin="5 0">
                             <Hyperlink>详情</Hyperlink>
-                        </TextBlock>
-                        <TextBlock Margin="5 0">
+                                        </TextBlock>
+                                        <TextBlock Margin="5 0">
                             <Hyperlink>删除</Hyperlink>
-                        </TextBlock>
-                    </StackPanel>
-                    
-                    
-                </Grid>
-            </StackPanel>
-            
-            
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+
+                                <zxc:SkeketonScreen x:Name="Sketelton"/>
+                            </Grid>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsShowSkeleton}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" TargetName="Sketelton"/>
+                                    <Setter Property="Visibility" Value="Collapsed" TargetName="CourseContent"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsShowSkeleton}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" TargetName="Sketelton"/>
+                                    <Setter Property="Visibility" Value="Visible" TargetName="CourseContent"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+
+
         </Grid>
     </Border>
 
