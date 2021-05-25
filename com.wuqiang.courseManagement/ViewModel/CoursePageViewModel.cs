@@ -63,9 +63,6 @@ namespace com.wuqiang.courseManagement.ViewModel
             //public string Url { get; set; }
             //public string Description { get; set; }
             //public List<string> Teachers { get; set; }
-          
-
-
         }
 
         private void InitCourseList()

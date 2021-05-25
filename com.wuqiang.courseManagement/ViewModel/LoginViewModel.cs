@@ -57,8 +57,8 @@ namespace com.wuqiang.courseManagement.ViewModel
             };
 
             this.LoginMsgModel = new LoginModel();
-            this.LoginMsgModel.UserName = "727633266@qq.com";
-            this.LoginMsgModel.ValidataCode = "3245";
+            //this.LoginMsgModel.UserName = "727633266@qq.com";
+            //this.LoginMsgModel.ValidataCode = "3245";
             //this.LoginMsgModel.Pwd = "12453";
 
             //登录按钮
