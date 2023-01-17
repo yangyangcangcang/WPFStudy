@@ -41,7 +41,6 @@
 
                     <ControlTemplate TargetType="{x:Type TextBox}" x:Key="SearchTextBoxTemplate">
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#22000000" SnapsToDevicePixels="True" CornerRadius="16">
-
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="32"/>
@@ -69,11 +68,10 @@
                             <DataTrigger Binding="{Binding Text,RelativeSource={RelativeSource Mode=Self}}"  Value="">
                                 <Setter TargetName="mt" Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-
-
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
 
+                    
                      <!--定义动画 侧滑栏-->
                     <Storyboard x:Key="UserInfoStorybord">
                         <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetName="tt" Storyboard.TargetProperty="X"/>
@@ -138,7 +136,7 @@
                             <ImageBrush ImageSource="../Assets/Images/Login.jpg"/>
                         </Border.Background>
                     </Border>
-                    <Button Content="Admin" VerticalAlignment="Center" Foreground="White" Margin="10 0 0 0" Cursor="Hand" x:Name="btnUserInfo">
+                    <Button  VerticalAlignment="Center" Foreground="White" Margin="10 0 0 0" Cursor="Hand" x:Name="btnUserInfo">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <TextBlock Text="Admin"/>
@@ -157,7 +155,7 @@
                     <RadioButton Content="诚聘英才" Style="{StaticResource NavButtonStyle}"/>
                     <RadioButton Content="个人中心" Style="{StaticResource NavButtonStyle}"/>
                 </StackPanel>
-                <TextBox Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="300"  Height = "30"  Template="{StaticResource SearchTextBoxTemplate}" Text="{Binding SearchText}" Foreground="White"/>
+                <TextBox Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="300"  Height = "30"  Template="{StaticResource SearchTextBoxTemplate}" Text="{Binding SearchText}" Foreground="White" />
                 <!--具体内容显示-->
                 <ContentControl Grid.Row="2" Content="{Binding MainContent}"/>
             </Grid>

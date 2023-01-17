@@ -8,7 +8,6 @@ using System.Windows.Input;
 namespace com.wuqiang.courseManagement.Common
 {
 
-     
     public class CommandBase : ICommand
     {
         public event EventHandler CanExecuteChanged;

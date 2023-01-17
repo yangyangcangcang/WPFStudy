@@ -62,5 +62,7 @@ namespace com.wuqiang.courseManagement.View
         {
             this.Close();
         }
+
+       
     }
 }

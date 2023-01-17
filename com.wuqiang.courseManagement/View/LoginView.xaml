@@ -62,7 +62,6 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
-
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="40"/>
@@ -71,8 +70,6 @@
                                 <TextBox Text="&#xe663;" Foreground="#DDD" FontFamily="../Assets/Fonts/#iconfont" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"  BorderThickness="0"/>
                                 <ScrollViewer x:Name="PART_ContentHost" Grid.Column="1" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" VerticalAlignment="Center" MinHeight="20"/>
                             </Grid>
-
-
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
@@ -217,7 +214,7 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
-            <Border Background="#007DFA" CornerRadius="10 10 10 0" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+            <Border Background="#007DFA" CornerRadius="10 10 0 0" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
             <Button VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Template="{StaticResource CloseButtonTemplate}" Command="{Binding CloseWindowsCommandBase}" CommandParameter="{Binding ElementName=closeWindow}"/>
 
             <StackPanel VerticalAlignment="Bottom" Margin="0 0 0 30">
@@ -228,9 +225,7 @@
                         </Border.Background>
                     </Border>
                 </Border>
-
                 <TextBlock Text="我的任务管理平台" HorizontalAlignment="Center" Foreground="White" FontSize="15"/>
-
             </StackPanel>
 
             <Grid Grid.Row="1" Margin="20 20" FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
@@ -273,7 +268,6 @@
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
                     <Border BorderBrush="#DDD" BorderThickness="0 0 0 1" VerticalAlignment="Center"/>
                     <TextBlock Text="OR" Foreground="#CCC" Grid.Column="1" VerticalAlignment="Center"/>
                     <Border BorderBrush="#DDD" BorderThickness="0 0 0 1" VerticalAlignment="Center" Grid.Column="2"/>
